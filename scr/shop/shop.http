@@ -1,0 +1,43 @@
+### GET ALL
+GET http://localhost:3001/api/shop
+
+
+### ID
+@id = 6549b10a4caaaa2d4d754510
+
+###GET ONE
+GET http://localhost:3001/api/shop/{{id}}
+
+### POST
+# @name createShop
+POST http://localhost:3001/api/shop
+Content-Type: application/json
+ 
+{
+    "name": "Transporte DJJB",
+    "adress": "12 de Abril 0596",
+    "fiscalType": "Resposable Inscripto",
+    "mail": "djjb@gmail.com",
+    "normalPayment": "Efectivo",
+    "type": "PyME",
+    "contact" : "6548ef9d60599d13db78eccb"
+}
+
+
+###PUT
+PUT http://localhost:3001/api/shop/{{id}}
+Content-Type: application/json 
+
+{
+    "name": "Transporte DAVIDJUANJOSE",
+    "adress": "12 de Abril",
+    "fiscalType": "Resposable Inscripto",
+    "mail": "djjb@gmail.com",
+    "normalPayment": "CHEQUE",
+    "type": "PyME",
+    "contact" : "6548ef9d60599d13db78eccb"
+}
+
+
+### DELETE
+DELETE http://localhost:3001/api/shop/{{id}}
