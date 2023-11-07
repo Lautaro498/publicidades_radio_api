@@ -20,10 +20,7 @@ export class Contract extends BaseEntity{
     @Property({nullable: true})
     observations?: string
 
-
-   
-
-  @ManyToOne(() => Shop)
-  shop!: Rel<Shop>
+   @ManyToOne(() => Shop)
+   shop!: Rel<Shop>
 
 }

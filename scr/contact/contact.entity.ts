@@ -7,18 +7,17 @@ import { BaseEntity } from '../shared/db/baseEntity.entity.js';
 @Entity()
 export class Contact extends BaseEntity{
 
+  @Property({nullable:false})
+  name!: string
+
+  @Property({nullable:false})
+  lastname!: string
 
   @Property({nullable:false, unique: true})
   dni!: string
 
   @Property()
-  name!: string
-
-  @Property()
-  surname!: string
-
-  @Property()
-  phone!: string
+  contacts!: string[]
 
  @OneToMany(() => Shop, shop => shop.contact)
   shops = new Collection<Shop>(this)

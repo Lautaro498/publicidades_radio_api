@@ -10,7 +10,7 @@ function sanitizeContactInput(req: Request, res: Response, next: NextFunction) {
         dni: req.body.dni,
         name: req.body.name,
         surname: req.body.surname,
-        phone: req.body.phone
+        contacts: req.body.contacts
     }
 
     Object.keys(req.body.sanitizeInput).forEach( (key)=>{ //devuelve un arreglo con las keys y para cada uno chequeamos not null
