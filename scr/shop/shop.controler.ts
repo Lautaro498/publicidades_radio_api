@@ -88,4 +88,16 @@ async function remove(req: Request, res: Response) {
     }
 }
 
-export {sanitizeShopInput, findAll, findOne, add, update, remove}
+async function getShopsByOwner(req: Request, res: Response) {
+    try {
+        const idOwner = req.params.ownerId
+        const shops = await em.find(Shop, {owner: idOwner}, {populate: ['contact', 'owner']})
+        res.status(200).json({messagge: 'Shops founded sucesfully', data: shops})
+
+    } catch (error:any) {
+        res.status(500).json({message: error.message})
+    }
+    
+}
+
+export {sanitizeShopInput, findAll, findOne, add, update, remove, getShopsByOwner}

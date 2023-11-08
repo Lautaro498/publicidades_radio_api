@@ -37,7 +37,7 @@ POST http://localhost:3001/api/owner
 Content-Type: application/json
 
 {
-    "cuit": "23224249969",
+    "cuit": "1111111111",
     "businessName": "Transporte DJJB", 
     "fiscalCondition": "Consumidor Final" 
 }

@@ -3,16 +3,24 @@ GET http://localhost:3001/api/shop
 
 
 ### ID
-@id = 654ae0b11d3e2bb509c115e6
+@id = 654ada122beba8847bd81fa9
 
 ###GET ONE
-GET http://localhost:3001/api/shop/{{id}}
+GET http://localhost:3001/api/shop/owner/{{id}}
+
+
+
+
+###GET BY OWNER ID
+GET http://localhost:3001/api/shop/owner/654ae5cd10991fd247130c52
+
+
 
 ### POST
 # @name createShop
 POST http://localhost:3001/api/shop
 Content-Type: application/json
- 
+
 {
     "fantasyName": "Transporte DJJB",
     "address": "12 de Abril 0596",
@@ -25,22 +33,43 @@ Content-Type: application/json
 }
 
 
+
 ###PUT 
 PUT http://localhost:3001/api/shop/{{id}}
 Content-Type: application/json 
 
-{
+
+
+##{
     "fantasyName": "Transporte DJJB",
     "address": "12 de Abril 0596",
     "billingType": "Sin comprobante Fiscal",
     "mail": "djjb@gmail.com",
     "usualPaymentForm": "Efectivo",
     "type": "PyME"
-}
+##}
 
 #DUDA: en el PUT le tengo que pasar todos los atributos o 
 # solo los que quiero cambiar?
 
 
 ### DELETE
-DELETE http://localhost:3001/api/shop/654ae0b11d3e2bb509c115e6
+DELETE http://localhost:3001/api/shop/654ae79c10991fd247130c53
+
+
+
+
+### 
+POST http://localhost:3001/api/shop
+Content-Type: application/json
+
+{
+    "fantasyName": "Software Marcos",
+    "address": "Fighiera",
+    "billingType": "Sin comprobante fiscal",
+    "mail": "m.a.r.c.o.s@gmail.com",
+    "usualPaymentForm": "Efectivo",
+    "type": "Autonomo",
+    "contact": "654ad0d341b4fa27919f8af8",
+    "owner": "654ae5cd10991fd247130c52"
+}
