@@ -11,16 +11,18 @@ export class Contract extends BaseEntity{
    // numContract!: string   //ver como hacer funcionar autoncremental.
  
     @Property({type: DateTimeType})
-    registrationDate? = new Date()
+    regDate? = new Date()
 
-    @Property({type: DateTimeType})
+    @Property({type: DateTimeType, nullable: false})
     dateFrom!: Date  
+
+    @Property({type: DateTimeType, nullable:true})
     dateTo?: Date   
 
     @Property({nullable: true})
     observations?: string
 
-   @ManyToOne(() => Shop)
-   shop!: Rel<Shop>
+    @ManyToOne(() => Shop)
+    shop!: Rel<Shop>
 
 }

@@ -6,9 +6,10 @@ const em = orm.em //entityManager
 em.getRepository(Contract)
 
 
+
 function sanitizeContractInput(req: Request, res: Response, next: NextFunction) {
     req.body.sanitizeInput = {
-        registrationDate : req.body.registrationDate,
+        regDate : req.body.regDate,
         dateFrom : req.body.dateFrom,
         dateTo : req.body.dateTo,
         observations : req.body.observations,
@@ -48,7 +49,8 @@ async function findOne(req: Request, res: Response) {
 
 async  function add(req: Request, res: Response) {
      try {
-        const contract = em.create(Contract, req.body.sanitizeInput) //tengo un problema con el sanitazed input
+        //Preguntar como hacer las validaciones. Supongo que con funciones externas.
+        const contract = em.create(Contract, req.body.sanitizeInput) //DEBERIA VALIDAR QUE EXISTA EL COMERCIO
         await em.flush() //seria como el save. Persiste. 
         res.status(200).json({message: 'Contract created sucesfully', data: contract})
     } catch (error: any) {
@@ -82,4 +84,14 @@ async function remove(req: Request, res: Response) {
     }
 }
 
-export {sanitizeContractInput, findAll, findOne, add, update, remove}
+async function getByShop(req: Request, res: Response) {
+    try {
+        const idShop = req.params.idShop
+        const contracts = await em.find(Contract, {shop: idShop}, {populate: ['shop']} ) //¿popular con contacto y titular?
+        res.status(200).json({message: 'Contract founded sucesfully', data: contracts})
+    } catch (error : any) {
+        res.status(500).json({message: error.message})
+    }
+}
+
+export {sanitizeContractInput, getByShop, findAll, findOne, add, update, remove}

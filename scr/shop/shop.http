@@ -3,10 +3,10 @@ GET http://localhost:3001/api/shop
 
 
 ### ID
-@id = 654ada122beba8847bd81fa9
+@id = 654ae5ac10991fd247130c51
 
 ###GET ONE
-GET http://localhost:3001/api/shop/owner/{{id}}
+GET http://localhost:3001/api/shop/{{id}}
 
 
 

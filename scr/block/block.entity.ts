@@ -1,8 +1,14 @@
+import {Property,  Entity, DateTimeType} from '@mikro-orm/core';
+import { BaseEntity } from '../shared/db/baseEntity.entity.js';
 
+@Entity()
+export class Block extends BaseEntity{
+    
+     @Property({nullable: false, unique: true})
+     numBlock!: string   
 
-export class Block {
-  constructor(
-    public startTime: string,
-    public number: number,
-  ) {}
+    @Property({nullable: false})
+    startTime!: DateTimeType
+   
+
 }

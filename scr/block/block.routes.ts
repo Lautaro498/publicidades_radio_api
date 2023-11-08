@@ -1,4 +1,3 @@
-/*
 import { Router } from 'express'
 import { sanitizeBlockInput, findAll, findOne, add, update, remove } from './block.controler.js'
 
@@ -11,4 +10,3 @@ blockRouter.put('/:id', sanitizeBlockInput, update)
 blockRouter.patch('/:id', sanitizeBlockInput, update)
 blockRouter.delete('/:id', remove)
 
-*/

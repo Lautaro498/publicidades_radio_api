@@ -1,8 +1,10 @@
-/*
 
 import { Request, Response, NextFunction } from 'express'
 import { Block } from './block.entity.js'
+import { orm } from '../shared/db/orm.js'
 
+const em = orm.em
+em.getRepository(Block)
 
 
 function sanitizeBlockInput(req: Request, res: Response, next: NextFunction) {
@@ -20,53 +22,65 @@ function sanitizeBlockInput(req: Request, res: Response, next: NextFunction) {
   next()
 }
 
-function findAll(req: Request, res: Response) {
-  res.json({ data: repository.findAll() })
-}
-
-function findOne(req: Request, res: Response) {
-  const id = req.params.id
-  const block = repository.findOne({ id })
-  if (!block) {
-    return res.status(404).send({ message: 'Block not found' })
-  }
-  res.json({ data: block })
-}
-
-function add(req: Request, res: Response) {
-  const input = req.body.sanitizedInput
-
-  const blockInput = new Block(
-    input.startTime,
-    input.number
-  )
-
-  const block = repository.add(blockInput)
-  return res.status(201).send({ message: 'Block created', data: block })
-}
-
-function update(req: Request, res: Response) {
-  req.body.sanitizedInput.id = req.params.id
-  const block = repository.update(req.body.sanitizedInput)
-
-  if (!block) {
-    return res.status(404).send({ message: 'Block not found' })
+async function findAll(req: Request, res: Response) {
+    try {
+        const blocks = await em.find(Block, {}) //no pongo contrataciones porque no esta desarrollada
+        res.status(200).json({message: 'Find all Blocks', data: blocks})
+    } catch (error: any) {
+        res.status(500).json({message: error.message})
+    }
   }
 
-  return res.status(200).send({ message: 'Block updated successfully', data: block })
+
+async function findOne(req: Request, res: Response) {
+     try {
+        const id = req.params.id
+        const blocks = await em.findOneOrFail(Block, {id})
+        res.status(200).json({message: 'Block founded', data: blocks})
+    } catch (error: any) {
+        res.status(500).json({message: error.message})
+    }
+    
 }
 
-function remove(req: Request, res: Response) {
-  const id = req.params.id
-  const block = repository.delete({ id })
 
-  if (!block) {
-    res.status(404).send({ message: 'Block not found' })
-  } else {
-    res.status(200).send({ message: 'Block deleted successfully' })
-  }
+async  function add(req: Request, res: Response) {
+     try {
+        //Preguntar como hacer las validaciones. Supongo que con funciones externas.
+        const blocks = em.create(Block, req.body.sanitizeInput) //DEBERIA VALIDAR QUE EXISTA EL COMERCIO
+        await em.flush() //seria como el save. Persiste. 
+        res.status(200).json({message: 'Block created sucesfully', data: blocks})
+    } catch (error: any) {
+        res.status(500).json({message: error.message})
+    }
 }
 
-export { sanitizeBlockInput, findAll, findOne, add, update, remove }
 
-*/
+async function update(req: Request, res: Response)  {
+    try {
+        const id = req.params.id
+        const blockToUpdate = await em.findOneOrFail(Block, {id})
+        em.assign(blockToUpdate, req.body.sanitizeInput) //deberia estar sanitizada
+        await em.flush()
+        res.status(200).json({message: 'Block updeted sucesfully', data: blockToUpdate})
+    } catch (error: any) {
+        res.status(500).json({message: error.message})
+    }
+}
+
+
+async function remove(req: Request, res: Response) {
+    try {
+        const id = req.params.id
+        const blockToRemove = em.getReference(Block, id)
+        await em.removeAndFlush(blockToRemove) //deberia estar sanitizada
+        res.status(200).json({message: 'Block removed sucesfully', data: blockToRemove})
+    } catch (error: any) {
+        res.status(500).json({message: error.message})
+    }
+}
+
+
+
+
+export {sanitizeBlockInput,  findAll, findOne, add, update, remove}
