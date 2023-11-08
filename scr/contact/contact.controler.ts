@@ -9,10 +9,10 @@ function sanitizeContactInput(req: Request, res: Response, next: NextFunction) {
     req.body.sanitizeInput = {
         dni: req.body.dni,
         name: req.body.name,
-        surname: req.body.surname,
+        lastname: req.body.lastname,
         contacts: req.body.contacts
     }
-
+// la ID no la consideramos? Creo que nunca deberia venir en el cuerpo del mensaje. Si en la data de la request
     Object.keys(req.body.sanitizeInput).forEach( (key)=>{ //devuelve un arreglo con las keys y para cada uno chequeamos not null
         if (req.body.sanitizeInput[key] === undefined) {
             delete req.body.sanitizeInput[key]
@@ -74,7 +74,10 @@ async function remove(req: Request, res: Response) {
     const id = req.params.id
     const contact = em.getReference(Contact, id)
     await em.removeAndFlush(contact)
-    res.status(200).json({message: 'Contact deleted succesfully'})
+    res.status(200).json({message: 'Contact deleted succesfully', data: contact})
+    //duda: como verifico si realmente lo borra, porque 
+    //cuando no lo encuentra me dice que se borro igual, 
+    //pero realmente no se encontro el contacto.
    } catch (error: any) {
     res.status(500).json({message: error.message})
    }

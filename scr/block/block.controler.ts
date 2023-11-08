@@ -1,8 +1,9 @@
+/*
+
 import { Request, Response, NextFunction } from 'express'
-import { BlockRepository } from './block.repository.js'
 import { Block } from './block.entity.js'
 
-const repository = new BlockRepository()
+
 
 function sanitizeBlockInput(req: Request, res: Response, next: NextFunction) {
   req.body.sanitizedInput = {
@@ -67,3 +68,5 @@ function remove(req: Request, res: Response) {
 }
 
 export { sanitizeBlockInput, findAll, findOne, add, update, remove }
+
+*/

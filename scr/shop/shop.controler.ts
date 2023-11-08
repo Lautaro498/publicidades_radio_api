@@ -9,15 +9,16 @@ em.getRepository(Shop)
 
 function sanitizeShopInput(req: Request, res: Response, next: NextFunction) {
     req.body.sanitizeInput = {
-        registrationDate: req.body.registrationDate, //duda, no deberia entrar?
-        name: req.body.name,
-        adress: req.body.adress,
-        fiscalType: req.body.fiscalType,
+        //regDate: req.body.regDate, //duda, no deberia entrar?
+        fantasyName: req.body.fantasyName,
+        address: req.body.address,
+        billingType: req.body.billingType,
         mail: req.body.mail,
-        normalPayment: req.body.normalPayment,
+        usualPaymentForm: req.body.usualPaymentForm,
         type: req.body.type,
         //numShop: req.body.numShop,
-        contact: req.body.contact
+        contact: req.body.contact,
+        owner: req.body.owner
     }
 
     Object.keys(req.body.sanitizeInput).forEach( (key)=>{ //devuelve un arreglo con las keys y para cada uno chequeamos not null
@@ -31,7 +32,7 @@ function sanitizeShopInput(req: Request, res: Response, next: NextFunction) {
 
 async function findAll(req: Request, res: Response) {
     try {
-        const shops = await em.find(Shop, {}, {populate:['contact']}) //no pongo contrataciones porque no esta desarrollada
+        const shops = await em.find(Shop, {}, {populate:['contact', 'owner']}) //no pongo contrataciones porque no esta desarrollada
         res.status(200).json({message: 'Find all Shops', data: shops})
     } catch (error: any) {
         res.status(500).json({message: error.message})
@@ -42,7 +43,7 @@ async function findAll(req: Request, res: Response) {
 async function findOne(req: Request, res: Response) {
      try {
         const id = req.params.id
-        const shop = await em.findOneOrFail(Shop, {id}, {populate: ['contact']})
+        const shop = await em.findOneOrFail(Shop, {id}, {populate: ['contact', 'owner']})
         res.status(200).json({message: 'Shop founded', data: shop})
     } catch (error: any) {
         res.status(500).json({message: error.message})

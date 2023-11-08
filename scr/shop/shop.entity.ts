@@ -4,34 +4,35 @@ import {Entity, Property, DateTimeType, OneToMany, ManyToOne, Collection, Rel} f
 import { Contact } from '../contact/contact.entity.js';
 import { BaseEntity } from '../shared/db/baseEntity.entity.js';
 import { Contract } from '../contract/contract.entity.js';
+import { Owner } from '../owner/owner.entity.js';
 
 @Entity()
 export class Shop extends BaseEntity{
    
 
     @Property({type: DateTimeType})
-    registrationDate? = new Date()
+    regDate? = new Date()
 
-    @Property()     
-    name!: string
+    @Property({nullable:false})     
+    fantasyName!: string
     
-    @Property()    
-    adress!: string
+    @Property({nullable:false})    
+    address!: string
     
-    @Property()    
-    fiscalType!: string
+    @Property({nullable:false})    
+    billingType!: string //condicionfiscal. fiscalCondition
 
-    @Property()    
+    @Property({nullable: false})    
     mail!: string
 
     @Property({nullable: true})    
-    normalPayment?: string
+    usualPaymentForm?: string
 
     @Property({nullable: true})    
     type?: string
    
-    @Property({nullable: true})
-    numShop?: number //ver como hacer autoincremental.
+    //@Property({nullable: true}) //no esta en el modelo de la vista. 
+    //numShop?: number //ver como hacer autoincremental.
 
     @OneToMany(() => Contract, contract => contract.shop) //ver asundos de dependencias y cascadas
     contracts = new Collection<Contract>(this)
@@ -39,4 +40,6 @@ export class Shop extends BaseEntity{
     @ManyToOne( () => Contact)
     contact!: Rel<Contact>
     
+    @ManyToOne( () => Owner)
+    owner!: Rel<Owner>
 }

@@ -3,7 +3,7 @@ GET http://localhost:3001/api/shop
 
 
 ### ID
-@id = 6549b10a4caaaa2d4d754510
+@id = 654ae0b11d3e2bb509c115e6
 
 ###GET ONE
 GET http://localhost:3001/api/shop/{{id}}
@@ -14,30 +14,33 @@ POST http://localhost:3001/api/shop
 Content-Type: application/json
  
 {
-    "name": "Transporte DJJB",
-    "adress": "12 de Abril 0596",
-    "fiscalType": "Resposable Inscripto",
+    "fantasyName": "Transporte DJJB",
+    "address": "12 de Abril 0596",
+    "billingType": "Resposable Inscripto",
     "mail": "djjb@gmail.com",
-    "normalPayment": "Efectivo",
+    "usualPaymentForm": "Efectivo",
     "type": "PyME",
-    "contact" : "6548ef9d60599d13db78eccb"
+    "contact": "654ad0d341b4fa27919f8af8",
+    "owner": "654ada122beba8847bd81fa9"
 }
 
 
-###PUT
+###PUT 
 PUT http://localhost:3001/api/shop/{{id}}
 Content-Type: application/json 
 
 {
-    "name": "Transporte DAVIDJUANJOSE",
-    "adress": "12 de Abril",
-    "fiscalType": "Resposable Inscripto",
+    "fantasyName": "Transporte DJJB",
+    "address": "12 de Abril 0596",
+    "billingType": "Sin comprobante Fiscal",
     "mail": "djjb@gmail.com",
-    "normalPayment": "CHEQUE",
-    "type": "PyME",
-    "contact" : "6548ef9d60599d13db78eccb"
+    "usualPaymentForm": "Efectivo",
+    "type": "PyME"
 }
+
+#DUDA: en el PUT le tengo que pasar todos los atributos o 
+# solo los que quiero cambiar?
 
 
 ### DELETE
-DELETE http://localhost:3001/api/shop/{{id}}
+DELETE http://localhost:3001/api/shop/654ae0b11d3e2bb509c115e6

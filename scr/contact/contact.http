@@ -3,7 +3,7 @@ GET http://localhost:3001/api/contact
 
 ## ID
 @id = {{createContact.response.body.data.id}}
-
+ 
 ### GET ONE
 GET http://localhost:3001/api/contact/{{id}}
 
@@ -15,8 +15,9 @@ Content-Type: application/json
 {
     "dni": "5257214",
     "name": "Ana",
-    "surname": "Carpinetti",
-    "phone": "3402428992"
+    "lastname": "Carpinetti",
+    "contacts": ["3402428992"]
+
 }
 
 ### PUTH Modifica todo el objeto -idempotente-
@@ -26,8 +27,8 @@ Content-Type: application/json
 {
     "dni": "44996266",
     "name": "Lautaro",
-    "surname": "Brancatti",
-    "phone": "lautarobrancatti@gmail.com"
+    "lastname": "Brancatti",
+    "contacts": ["lautarobrancatti@gmail.com"]
 }
 
 
@@ -40,8 +41,8 @@ Content-Type: application/json
 {
     "dni": "22424996",
     "name": "David",
-    "surname": "Brancatti",
-    "phone": "0341153126645"
+    "lastname": "Brancatti",
+    "contacts": ["0341153126645"]
 }
 
 

@@ -13,6 +13,7 @@ import { shopRouter } from './shop/show.routes.js';
 import { orm } from './shared/db/orm.js';
 import {RequestContext} from '@mikro-orm/core';
 import cors from 'cors';
+import { ownerRouter } from './owner/owner.routes.js';
 
 const PORT = 3001 || process.env.PORT;
 
@@ -31,6 +32,7 @@ app.use((req, res, next) => {
 app.use("/api/contact", contactRouter)
 app.use("/api/contract", contractRouter)
 app.use("/api/shop", shopRouter)
+app.use("/api/owner", ownerRouter)
 
 //RUTA POR DEFECTO CUANDO ESTA MAL LA URL INGRESADA
 
