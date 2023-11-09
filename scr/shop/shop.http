@@ -1,7 +1,7 @@
 ### GET ALL
 GET http://localhost:3001/api/shop
-
-
+ 
+ 
 ### ID
 @id = 654ae5ac10991fd247130c51
 

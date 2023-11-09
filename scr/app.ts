@@ -9,7 +9,7 @@ import 'reflect-metadata'
 import express from "express";
 import { contactRouter } from "./contact/contact.routes.js";
 import { contractRouter } from './contract/contract.routes.js';
-import { shopRouter } from './shop/show.routes.js';
+import { shopRouter } from './shop/shop.routes.js';
 import { orm } from './shared/db/orm.js';
 import {RequestContext} from '@mikro-orm/core';
 import cors from 'cors';
@@ -34,7 +34,7 @@ app.use("/api/contact", contactRouter)
 app.use("/api/contract", contractRouter)
 app.use("/api/shop", shopRouter)
 app.use("/api/owner", ownerRouter)
-app.use("api/block", blockRouter)
+app.use("/api/block", blockRouter)
 
 //RUTA POR DEFECTO CUANDO ESTA MAL LA URL INGRESADA
 

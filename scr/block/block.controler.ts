@@ -8,19 +8,50 @@ em.getRepository(Block)
 
 
 function sanitizeBlockInput(req: Request, res: Response, next: NextFunction) {
-  req.body.sanitizedInput = {
-    number: req.body.number,
+  req.body.sanitizeInput = {
+    numBlock: req.body.numBlock,
     startTime: req.body.startTime
   }
   //more checks here
-
-  Object.keys(req.body.sanitizedInput).forEach((key) => {
-    if (req.body.sanitizedInput[key] === undefined) {
-      delete req.body.sanitizedInput[key]
+  Object.keys(req.body.sanitizeInput).forEach((key) => {
+    if (req.body.sanitizeInput[key] === undefined) {
+      delete req.body.sanitizeInput[key]
     }
   })
   next()
 }
+
+
+
+//FUNCIONES PARA CREAR AUTOMATICAMENTE TODOS LOS BLOQUES
+
+function formatoHora(hora: Date): string {
+  const horas = hora.getHours().toString().padStart(2, '0');
+  const minutos = hora.getMinutes().toString().padStart(2, '0');
+  const segundos = hora.getSeconds().toString().padStart(2, '0');
+  return `${horas}:${minutos}:${segundos}`;
+}
+
+async  function addAll(req: Request, res: Response) {
+     try {
+        let hora = new Date('2023-01-01T00:00:00')
+        let blocks: Block[] = [];
+        for(let x=0; x<=48 ;x=x+1){
+          req.body.numBlock = x.toString();
+          req.body.startTime = formatoHora(hora)
+          hora = new Date(hora.getTime() + 30 * 60 * 1000)
+          let block = em.create(Block, req.body)
+          blocks.push(block)
+    } 
+    await em.flush()
+    res.status(200).json({message: 'All blocks created sucesfulli', data: blocks})
+  } catch (error: any) {
+        res.status(500).json({message: error.message})
+    }
+}
+
+//FIN DE FUNCIONES PARA CREAR TODOS LOS BLOQUES
+
 
 async function findAll(req: Request, res: Response) {
     try {
@@ -44,15 +75,16 @@ async function findOne(req: Request, res: Response) {
 }
 
 
-async  function add(req: Request, res: Response) {
-     try {
-        //Preguntar como hacer las validaciones. Supongo que con funciones externas.
-        const blocks = em.create(Block, req.body.sanitizeInput) //DEBERIA VALIDAR QUE EXISTA EL COMERCIO
-        await em.flush() //seria como el save. Persiste. 
-        res.status(200).json({message: 'Block created sucesfully', data: blocks})
+
+async function add(req: Request, res:Response) {
+  try {
+    const block = em.create(Block, req.body.sanitizeInput)
+     await em.flush() //seria como el save. Persiste. 
+     res.status(200).json({message: 'Block created sucesfully', data: block})
     } catch (error: any) {
-        res.status(500).json({message: error.message})
+      res.status(500).json({message: error.message})
     }
+  
 }
 
 
@@ -81,6 +113,17 @@ async function remove(req: Request, res: Response) {
 }
 
 
+//BORRAR TODOS LOS BLOQUES. 
+async function removeAll(req: Request, res: Response) {
+  try {
+    const blocks = await em.find(Block,{})
+    await em.removeAndFlush(blocks)
+    res.status(200).json({message: 'All blocks removed'})
+  }catch (error: any) {
+        res.status(500).json({message: error.message})
+    }
+  
+}
 
 
-export {sanitizeBlockInput,  findAll, findOne, add, update, remove}
+export {sanitizeBlockInput,  findAll, findOne, add, update, remove, removeAll, addAll}
