@@ -27,7 +27,7 @@ function sanitizeContractInput(req: Request, res: Response, next: NextFunction) 
 
 async function findAll(req: Request, res: Response) {
     try {
-        const contracts = await em.find(Contract, {}, {populate:['shop']}) //no pongo contrataciones porque no esta desarrollada
+        const contracts = await em.find(Contract, {}, {populate:['shop', 'orders']}) //no pongo contrataciones porque no esta desarrollada
         res.status(200).json({message: 'Find all Contracts', data: contracts})
     } catch (error: any) {
         res.status(500).json({message: error.message})

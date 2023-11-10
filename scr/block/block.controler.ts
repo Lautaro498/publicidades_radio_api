@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from 'express'
 import { Block } from './block.entity.js'
 import { orm } from '../shared/db/orm.js'
 import { Price } from '../price/price.entity.js'
-import { Collection } from '@mikro-orm/core'
+
 
 const em = orm.em
 em.getRepository(Block)
@@ -57,8 +57,8 @@ async  function addAll(req: Request, res: Response) {
 
 async function findAll(req: Request, res: Response) {
     try {
-        const blocks = await em.find(Block, {}) //no pongo contrataciones porque no esta desarrollada
-        res.status(200).json({message: 'Find all Blocks', data: blocks})
+        const blocks = await em.find(Block, {}) //como puedo popular solamente con el ultimo bloque
+            res.status(200).json({message: 'Find all Blocks', data: blocks})
     } catch (error: any) {
         res.status(500).json({message: error.message})
     }

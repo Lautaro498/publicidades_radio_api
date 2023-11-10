@@ -1,6 +1,6 @@
 ### GET ALL
 GET http://localhost:3001/api/contract
-
+   
   
 ### ID
 @idShop = 6549b1cb9814910bc8096e11

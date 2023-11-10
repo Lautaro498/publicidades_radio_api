@@ -42,4 +42,6 @@ export class Shop extends BaseEntity{
     
     @ManyToOne( () => Owner)
     owner!: Rel<Owner>
+
+    
 }

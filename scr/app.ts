@@ -16,6 +16,8 @@ import cors from 'cors';
 import { ownerRouter } from './owner/owner.routes.js';
 import { blockRouter } from './block/block.routes.js';
 import { priceRouter } from './price/price.routes.js';
+import { spotRouter } from './spot/spot.routes.js';
+import { orderRouter } from './order/order.routes.js';
 
 const PORT = 3001 || process.env.PORT;
 
@@ -37,6 +39,8 @@ app.use("/api/shop", shopRouter)
 app.use("/api/owner", ownerRouter)
 app.use("/api/block", blockRouter)
 app.use("/api/price", priceRouter)
+app.use("/api/spot", spotRouter)
+app.use("/api/order", orderRouter)
 
 //RUTA POR DEFECTO CUANDO ESTA MAL LA URL INGRESADA
 
