@@ -14,7 +14,6 @@ function sanitizeOwnerInput(req: Request, res: Response, next: NextFunction) {
         businessName: req.body.businessName,
         fiscalCondition: req.body.fiscalCondition,
     }
-// la ID no la consideramos? Creo que nunca deberia venir en el cuerpo del mensaje. Si en la data de la request
     Object.keys(req.body.sanitizeInput).forEach( (key)=>{ //devuelve un arreglo con las keys y para cada uno chequeamos not null
         if (req.body.sanitizeInput[key] === undefined) {
             delete req.body.sanitizeInput[key]

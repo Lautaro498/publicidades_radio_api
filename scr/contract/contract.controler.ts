@@ -27,7 +27,7 @@ function sanitizeContractInput(req: Request, res: Response, next: NextFunction) 
 
 async function findAll(req: Request, res: Response) {
     try {
-        const contracts = await em.find(Contract, {}, {populate:['shop', 'orders']}) //no pongo contrataciones porque no esta desarrollada
+        const contracts = await em.find(Contract, {}, {populate:['shop', 'orders']}) 
         res.status(200).json({message: 'Find all Contracts', data: contracts})
     } catch (error: any) {
         res.status(500).json({message: error.message})
@@ -51,7 +51,7 @@ async  function add(req: Request, res: Response) {
      try {
         //Preguntar como hacer las validaciones. Supongo que con funciones externas.
         const contract = em.create(Contract, req.body.sanitizeInput) //DEBERIA VALIDAR QUE EXISTA EL COMERCIO
-        await em.flush() //seria como el save. Persiste. 
+        await em.flush() 
         res.status(200).json({message: 'Contract created sucesfully', data: contract})
     } catch (error: any) {
         res.status(500).json({message: error.message})
