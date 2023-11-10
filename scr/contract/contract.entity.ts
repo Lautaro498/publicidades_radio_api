@@ -1,8 +1,9 @@
 // contract.entity.ts
 
-import {Property, ManyToOne, DateTimeType, Entity, Rel} from '@mikro-orm/core';
+import {Property, ManyToOne, DateTimeType, Entity, Rel, OneToMany, Collection} from '@mikro-orm/core';
 import { Shop } from '../shop/shop.entity.js';
 import { BaseEntity } from '../shared/db/baseEntity.entity.js';
+import { Order } from '../order/order.entity.js';
 
 @Entity()
 export class Contract extends BaseEntity{
@@ -24,5 +25,8 @@ export class Contract extends BaseEntity{
 
     @ManyToOne(() => Shop)
     shop!: Rel<Shop>
+
+    @OneToMany(() => Order, order => order.contract) //revisar asunto de persistencias
+    orders = new Collection<Order>(this)
 
 }

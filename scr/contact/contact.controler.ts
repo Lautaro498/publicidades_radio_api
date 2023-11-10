@@ -45,9 +45,7 @@ async function findOne(req: Request, res: Response) {
 
 async  function add(req: Request, res: Response) {
     try{
-        console.log(req.body)
-        console.log(req.body.sanitizeInput)
-        const contact = em.create(Contact, req.body)
+        const contact = em.create(Contact, req.body.sanitizeInput)
         await em.flush()
         res.status(201).json({message: 'Contact created succesfully', data: contact})
     } catch(error: any) {
@@ -60,7 +58,7 @@ async function update(req: Request, res: Response)  {
    try {
     const id = req.params.id
     const contact = em.getReference(Contact, id)
-    em.assign(contact, req.body)
+    em.assign(contact, req.body.sanitizeInput)
     await em.flush()
     res.status(200).json({message: 'Contact modificated succesfully', data: contact})
    } catch (error: any) {

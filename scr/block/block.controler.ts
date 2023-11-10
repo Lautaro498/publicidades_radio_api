@@ -2,6 +2,8 @@
 import { Request, Response, NextFunction } from 'express'
 import { Block } from './block.entity.js'
 import { orm } from '../shared/db/orm.js'
+import { Price } from '../price/price.entity.js'
+import { Collection } from '@mikro-orm/core'
 
 const em = orm.em
 em.getRepository(Block)
@@ -44,7 +46,7 @@ async  function addAll(req: Request, res: Response) {
           blocks.push(block)
     } 
     await em.flush()
-    res.status(200).json({message: 'All blocks created sucesfulli', data: blocks})
+    res.status(200).json({message: 'All blocks created sucessfully', data: blocks})
   } catch (error: any) {
         res.status(500).json({message: error.message})
     }
@@ -116,9 +118,11 @@ async function remove(req: Request, res: Response) {
 //BORRAR TODOS LOS BLOQUES. 
 async function removeAll(req: Request, res: Response) {
   try {
-    const blocks = await em.find(Block,{})
-    await em.removeAndFlush(blocks)
-    res.status(200).json({message: 'All blocks removed'})
+    const blocks = await em.find(Block , {})
+    console.log(blocks)
+    em.remove(blocks)
+    await em.flush()
+    res.status(200).json({message: 'All blocks removed', data: blocks})
   }catch (error: any) {
         res.status(500).json({message: error.message})
     }

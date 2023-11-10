@@ -9,6 +9,7 @@ blockRouter.post('/all', sanitizeBlockInput, addAll) //CREA TODOS LOS BLOQUES
 blockRouter.post('/', sanitizeBlockInput, add)
 blockRouter.put('/:id', sanitizeBlockInput, update)
 blockRouter.patch('/:id', sanitizeBlockInput, update)
-blockRouter.delete('/:id', remove)
-blockRouter.delete('/all', removeAll) //BORRA TODOS LOS BLOQUES
+//blockRouter.delete('/:id', remove)
+blockRouter.delete('/deleteall/', removeAll) //BORRA TODOS LOS BLOQUES
 
+// Preguntar como seria las rutas. 

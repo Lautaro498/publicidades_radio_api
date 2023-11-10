@@ -1,7 +1,7 @@
 ### RUTAS DICEN BLOCKS en lugar de BLOCK
 
 ### obtener todos los block
-GET http://localhost:3001/api/block/
+GET http://localhost:3001/api/block
 
     
 ### obtener un block
@@ -26,7 +26,7 @@ Content-Type: application/json
 }
 
 
-@id = 
+@id = 654cf9fe2a21a1f7dc60abc3
 ### modificar un block (PATCH - recurso parcial)
 PATCH http://localhost:3000/api/block/{{id}}
 Content-Type: application/json
@@ -37,8 +37,9 @@ Content-Type: application/json
 
 
 ### borrar un block
-DELETE http://localhost:3000/api/block/{{id}}
+DELETE http://localhost:3001/api/block/{{id}}
+
 
 
 ###BORRAR TODOS LOS BLOQUES 
-DELETE http://localhost:3001/api/block/all
+DELETE http://localhost:3001/api/block/deleteall/
