@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";;
 import { orm } from "../shared/db/orm.js";
 import { Contact } from "./contact.entity.js";
 
+
 const em = orm.em
 em.getRepository(Contact)
 
