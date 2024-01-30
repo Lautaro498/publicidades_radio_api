@@ -18,7 +18,7 @@ Content-Type: application/json
  {
         "dateFrom" : "7-11-2023",
         "dateTo" :"",
-        "observations" : "quiere estar al final de la tanda.",
+        "observations" : "probando el manero de errores",
         "shop": "654ae5ac10991fd247130c51"
 }
 
@@ -33,8 +33,9 @@ Content-Type: application/json
     "dateTo" :"7-12-2023",
     "observations" : "",
     "shop": "654ae5ac10991fd247130c51"
+    
 }
 
 
 ### DELETE
-DELETE http://localhost:3001/api/contract/654aed4d961cc2bb7cc7c756
+DELETE http://localhost:3001/api/contract/65b95ffb6713bb69ef810c4e

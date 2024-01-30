@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { orm } from "../shared/db/orm.js";
 import { Contract } from "./contract.entity.js";
+import { Shop } from "../shop/shop.entity.js";
 
 const em = orm.em //entityManager
 em.getRepository(Contract)
@@ -50,9 +51,13 @@ async function findOne(req: Request, res: Response) {
 async  function add(req: Request, res: Response) {
      try {
         //Preguntar como hacer las validaciones. Supongo que con funciones externas.
+        const shop = await em.findOne(Shop, req.body.shop)
+        console.log(shop)
+        if (shop !== null) {
         const contract = em.create(Contract, req.body.sanitizeInput) //DEBERIA VALIDAR QUE EXISTA EL COMERCIO
-        await em.flush() 
-        res.status(200).json({message: 'Contract created sucesfully', data: contract})
+        await em.flush()
+        res.status(200).json({message: 'Contract created sucesfully', data: contract}) }
+        else { res.status(500).json({message: 'Shop does not exists'})}
     } catch (error: any) {
         res.status(500).json({message: error.message})
     }
