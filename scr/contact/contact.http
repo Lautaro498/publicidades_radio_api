@@ -13,9 +13,9 @@ POST http://localhost:3001/api/contact
 Content-Type: application/json
 
 {
-    "dni": "5257214",
-    "name": "Ana",
-    "lastname": "Carpinetti",
+    "dni": "44024934",
+    "name": "Marcos",
+    "lastname": "Del Solar",
     "contacts": ["3402428992"]
 
 }

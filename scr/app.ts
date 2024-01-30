@@ -27,7 +27,7 @@ app.use(express.json());
 app.use(cors({ origin: 'http://localhost:3001'}))
 
 //luego de los middlewares base
-app.use((req, res, next) => {
+app.use((req, _res, next) => {
   RequestContext.create(orm.em, next)
 })
 //antes de la tura y los middlewares de negocio

@@ -13,8 +13,8 @@ POST http://localhost:3001/api/owner
 Content-Type: application/json
 
 {
-        "cuit": "23224249969",
-        "businessName": "Brancatti David J J" ,
+        "cuit": "25440249659",
+        "businessName": "DEL SOLAR MARCOS" ,
         "fiscalCondition": "Responsable Inscripto" 
 
 }

@@ -22,14 +22,14 @@ POST http://localhost:3001/api/shop
 Content-Type: application/json
 
 {
-    "fantasyName": "Transporte DJJB",
-    "address": "12 de Abril 0596",
+    "fantasyName": "Software Del Solar",
+    "address": "Fighiera - Colon 521",
     "billingType": "Resposable Inscripto",
-    "mail": "djjb@gmail.com",
+    "mail": "sds@gmail.com",
     "usualPaymentForm": "Efectivo",
     "type": "PyME",
-    "contact": "654ad0d341b4fa27919f8af8",
-    "owner": "654ada122beba8847bd81fa9"
+    "contact": "65b8003c0c07cce72fd3c6c8",
+    "owner": "65b800630c07cce72fd3c6c9"
 }
 
 
