@@ -16,8 +16,8 @@ POST http://localhost:3001/api/contract
 Content-Type: application/json
  
  {
-        "dateFrom" : "7-11-2023",
-        "dateTo" :"",
+        "dateFrom" : "7/11/2023, 00:00:00",
+        "dateTo" :"6/12/2023, 00:00:00",
         "observations" : "probando el manero de errores",
         "shop": "654ae5ac10991fd247130c51"
 }
@@ -29,8 +29,8 @@ PUT http://localhost:3001/api/contract/{{id}}
 Content-Type: application/json 
 
 {
-    "dateFrom" : "7-11-2023",
-    "dateTo" :"7-12-2023",
+    "dateFrom" : "7/11/2023, 00:00:00",
+    "dateTo" :"6/12/2024, 00:00:00",
     "observations" : "",
     "shop": "654ae5ac10991fd247130c51"
     
@@ -38,4 +38,4 @@ Content-Type: application/json
 
 
 ### DELETE
-DELETE http://localhost:3001/api/contract/65b95ffb6713bb69ef810c4e
+DELETE http://localhost:3001/api/contract/65b978b0c76d436de401c5c0
