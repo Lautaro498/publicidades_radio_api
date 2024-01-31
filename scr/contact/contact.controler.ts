@@ -11,7 +11,7 @@ function sanitizeContactInput(req: Request, res: Response, next: NextFunction) {
         dni: req.body.dni,
         name: req.body.name,
         lastname: req.body.lastname,
-        contacts: req.body.contacts
+        contacts: req.body.contacts //un array con los distintos datos, telefono, email, etc.
     }
 // la ID no la consideramos? Creo que nunca deberia venir en el cuerpo del mensaje. Si en la data de la request
     Object.keys(req.body.sanitizeInput).forEach( (key)=>{ //devuelve un arreglo con las keys y para cada uno chequeamos not null

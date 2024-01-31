@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";;
 import { orm } from "../shared/db/orm.js";
 import { Order } from "./order.entity.js";
+import { Contract } from "../contract/contract.entity.js";
 
 const em = orm.em
 em.getRepository(Order)
@@ -9,16 +10,22 @@ function sanitizeOrderInput(req: Request, res: Response, next: NextFunction) {
     req.body.sanitizeInput = {
         numOrder: req.body.numOrder,
         regDate: req.body.regDate,
-        totalAds: req.body.totalAds,
-        daysAmount: req.body.daysAmount, 
+        totalAds: req.body.totalAds, //mayor que uno
+        daysAmount: req.body.daysAmount,   //calculado
         nameStrategy: req.body.nameStrategy,
-        totalCost: req.body.totalCost,
-        dailyCost: req.body.dailyCost,
+        totalCost: req.body.totalCost, //calculado
+        dailyCost: req.body.dailyCost, //calculado
         obs: req.body.obs,
         showName: req.body.showName,
         month: req.body.month,
-        contract: req.body.contract,
-        spot: req.body.spot
+        contract: req.body.contract, //validar existencia
+        spot: req.body.spot // aceptamos null en un primer momento. Al actualizar validar existencia
+        //falta el ingreso de datos de los bloques - 
+        //podriamos esperar un array con [nroBloque, fechaEmision] para la no regular.
+        //allí validamos que las fechas esten detro del contrato y que un mismo bloque no salga dos veces en la misma fecha.
+        //para el caso de las regulares podriamos esperar un [dia, [bloques]] ej: [lunes, [12,13,14,15]; martes, [12,14,15,16]]
+        //podria manejarlo el front la conversion de no regular a regular, pero es demasiada logica. 
+        //deberiamos cambiar la url a la que envia, una para el manejo de las regulares y otra para las no regulares.
     }
     Object.keys(req.body.sanitizeInput).forEach( (key)=>{ 
             if (req.body.sanitizeInput[key] === undefined) {
@@ -52,9 +59,15 @@ async function findOne(req: Request, res: Response) {
 
 async  function add(req: Request, res: Response) {
     try{
-        const order = em.create(Order, req.body.sanitizeInput)
-        await em.flush()
-        res.status(201).json({message: 'Order created succesfully', data: order})
+        const contract = await em.findOne(Contract, req.body.sanitizeInput.contract)
+        if (contract !== null ) {
+            const order = em.create(Order, req.body.sanitizeInput)
+            await em.flush()
+            res.status(201).json({message: 'Order created succesfully', data: order})
+        }
+        else {
+            res.status(500).json({message: 'Contract does not exists.'})
+        }
     } catch(error: any) {
         res.status(500).json({message: error.message})
     }

@@ -53,7 +53,7 @@ async function findOne(req: Request, res: Response) {
 async  function add(req: Request, res: Response) {  
      try {
         //BUSCA EL COMERCIO ENVIADO
-        const shop = await em.findOne(Shop, req.body.shop)
+        const shop = await em.findOne(Shop, req.body.sanitizeInput.shop)
         console.log(shop)
         // CREA EL CONTRATO SI EXISTE EL COMERCIO
         if (shop !== null) {
